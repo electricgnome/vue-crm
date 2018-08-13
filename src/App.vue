@@ -1,28 +1,29 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <Tabs/>
+  </v-app >
 </template>
-
+  
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Tabs from './components/Tabs'
+
 
 export default {
-  name: "app",
+  name: 'App',
   components: {
-    HelloWorld
+    Tabs
   }
-};
+ 
+}
 </script>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("http://www.electricgnome.com/codiad/workspace/Kappa/image/polonez_car.png");
 }
+
 </style>
