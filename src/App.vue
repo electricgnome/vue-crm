@@ -1,29 +1,24 @@
 <template>
   <v-app>
     <Tabs/>
+    <Names/>
+    <Contact/>
   </v-app >
 </template>
   
 <script>
 import Tabs from './components/Tabs'
-
+import Names from './components/Names'
+import Contact from './components/Contact'
 
 export default {
   name: 'App',
   components: {
-    Tabs
+    Tabs,
+    Names,
+    Contact
   }
  
 }
 </script>
 
-<style lang="scss">
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background-image: url("http://www.electricgnome.com/codiad/workspace/Kappa/image/polonez_car.png");
-}
-
-</style>

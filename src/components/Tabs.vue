@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-toolbar
-      color="red accent-2"
+      color="red lighten-2"
       dark
       tabs
     >
@@ -26,7 +26,7 @@
       <v-tabs
         slot="extension"
         v-model="tab"
-        color="red accent-2"
+        color="red lighten-2"
         grow
       >
         <v-tabs-slider color="yellow"></v-tabs-slider>
