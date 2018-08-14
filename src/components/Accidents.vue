@@ -14,8 +14,8 @@
                 <p>Tickets: {{ticketCount}} </p>
             </div>
             <div>
-                <v-btn flat>-</v-btn>
                 <v-btn flat>+</v-btn>
+                <v-btn flat>-</v-btn>
             </div>
            
         </v-flex>
@@ -24,8 +24,8 @@
                 Accidents: {{accidentCount}}
             </div>
             <div>
+                <v-btn flat>+</v-btn>
                 <v-btn flat>-</v-btn>
-                <v-btn flat>+ </v-btn>
             </div>
             
         </v-flex>
@@ -39,6 +39,11 @@ export default {
     data: ()=> ({
         ticketCount: 0,
         accidentCount: 0
-    })
+    }),
+    methods:{
+        increment(){
+
+        }
+    }
 };
 </script>
