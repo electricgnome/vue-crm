@@ -1,26 +1,20 @@
 <template>
   <v-app>
-    <Tabs/>
-    <Names/>
-    <Contact/>
-    <Details/>
+    <Stepper/>
   </v-app >
 </template>
   
 <script>
-import Tabs from "./components/Tabs";
-import Names from "./components/Names";
-import Contact from "./components/Contact";
-import Details from "./components/Details";
+import Stepper from "./components/Stepper";
+
+
 
 
 export default {
   name: "App",
   components: {
-    Tabs,
-    Names,
-    Contact,
-    Details
+    Stepper,
+  
   }
 };
 </script>
