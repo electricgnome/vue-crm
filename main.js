@@ -65,9 +65,8 @@ Vue.component("modal", {
     `
 });
 
-Vue.component('tabs',
-  {
-    template: `
+Vue.component("tabs", {
+  template: `
     <div>
         <div class="tabs">
             <ul>
@@ -84,26 +83,25 @@ Vue.component('tabs',
     </div>
     `,
 
-    data() {
-        return { tabs: []}
-    },
+  data() {
+    return { tabs: [] };
+  },
 
-    created() {
-        this.tabs = this.$children;
-    },
+  created() {
+    this.tabs = this.$children;
+  },
 
-    methods: {
-        selectTab(selectedTab){
-            this.tabs.forEach(tab => {
-                tab.isActive = (tab.name == selectedTab.name)
-            })
-
-        }
+  methods: {
+    selectTab(selectedTab) {
+      this.tabs.forEach(tab => {
+        tab.isActive = tab.name == selectedTab.name;
+      });
     }
-  });
+  }
+});
 
-Vue.component('tab',{
-    template: `
+Vue.component("tab", {
+  template: `
         <div v-show="isActive">
             <slot></slot>
         
@@ -111,27 +109,25 @@ Vue.component('tab',{
         </div>    
     `,
 
-    props: {
-        name: { requiered: true },
-        selected: { default: false }
+  props: {
+    name: { requiered: true },
+    selected: { default: false }
+  },
+
+  data() {
+    return { isActive: false };
+  },
+
+  computed: {
+    href() {
+      return "#" + this.name.toLowerCase().replace(/ /g, "-");
     },
 
-    data(){
-        return  {isActive: false}
-    },
-    
-    computed:{
-        href() {
-            return '#' + this.name.toLowerCase().replace(/ /g, '-')
-        },
-
-    mounted(){
-        this.isActive = this.selected;
+    mounted() {
+      this.isActive = this.selected;
     }
-
-    
-    }
-})
+  }
+});
 
 new Vue({
   el: "#root",

@@ -1,33 +1,32 @@
 <template>
-<v-form >
     <v-container>
         <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-radio-group v-model="gender" :mandatory="false">
-                    <v-radio label="Male" value="Male"></v-radio>
-                    <v-radio label="Female" value="Female"></v-radio>
+                    <v-radio label="Male" value="Male" color="primary"></v-radio>
+                    <v-radio label="Female" value="Female" color="primary"></v-radio>
                 </v-radio-group>
             </v-flex>
-            <v-flex xs3>
-                <v-radio-group v-model="marritalStatus" :mandatory="false">
-                    <v-radio label="Single" value="Single"></v-radio>
-                    <v-radio label="Married" value="Married"></v-radio>
+            <v-flex xs6 md3>
+                <v-radio-group v-model="marritalStatus" :mandatory="false" >
+                    <v-radio label="Single" value="Single" color="primary"></v-radio>
+                    <v-radio label="Married" value="Married" color="primary"></v-radio>
                 </v-radio-group>
             </v-flex>
         </v-layout>
         <v-layout justify-center row>
-            <v-flex xs6>
+            <v-flex xs12 md6>
                 <v-text-field v-model="occupation" label="Occupation"></v-text-field>
             </v-flex>
         </v-layout>
          <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
               <v-menu
-                ref="dob"
+                ref="date"
                 :close-on-content-click="false"
-                v-model="dob"
+                v-model="date"
                 :nudge-right="40"
-                :return-value.sync="date"
+                :return-value.sync="dob"
                 lazy
                 transition="scale-transition"
                 offset-y
@@ -36,42 +35,42 @@
               >
               <v-text-field
                 slot="activator"
-                v-model="date"
+                v-model="dob"
                 label="Date of Birth"
                 prepend-icon="event"
                 readonly
+                requiered
               ></v-text-field>
-              <v-date-picker v-model="date" @input="$refs.dob.save(date)"></v-date-picker>
+              <v-date-picker v-model="dob" @input="$refs.date.save(dob)"></v-date-picker>
 
               </v-menu>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
               <v-select :items="relations" v-model="relation" standard label="Relation to Primary Driver"></v-select>
             </v-flex>
          </v-layout>
         <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-select :items="IdTypes" v-model="idType" standard label="Form of ID"></v-select>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field v-model="IDNumber" :counter="15" label="ID Number"></v-text-field>
             </v-flex>
         </v-layout>
     </v-container>
-</v-form>
 </template>
 
 <script>
 export default {
   data: () => ({
-      gender: "",
-      marritalStatus:"",
-      occupation:"",
-      dob:false,
-      date:null,
-      relation:"Self",
-      idType: "Texas DL",    
-      IDNumber:"",
+    gender: "",
+    marritalStatus: "",
+    occupation: "",
+    date: false,
+    dob: null,
+    relation: "Self",
+    idType: "Texas DL",
+    IDNumber: "",
     IdTypes: [
       "Texas DL",
       "Texas ID",
@@ -88,8 +87,7 @@ export default {
       "Parent",
       "Child",
       "Other"
-    ],
-  
+    ]
   })
 };
 </script>

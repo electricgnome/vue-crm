@@ -6,28 +6,34 @@
     <v-layout row justify-center>
         <h3>Please be honest, your driving record will be verified.</h3>
     </v-layout>
-    
+
     <v-layout row justify-center>
-        
-        <v-flex xs3>
-             <div>
-                <p>Tickets: {{ticketCount}} </p>
-            </div>
+
+        <v-flex xs6 md5>
+          
             <div>
-                <v-btn flat>+</v-btn>
-                <v-btn flat>-</v-btn>
+                <v-btn flat @click="subtract('ticketCount')">
+                    <v-icon small>remove</v-icon>
+                </v-btn>
+                Tickets: {{ticketCount}}
+                <v-btn flat @click="sum('ticketCount')">
+                    <v-icon small right>add</v-icon>
+                </v-btn>
             </div>
-           
+
         </v-flex>
-        <v-flex xs3>
+        <v-flex xs6 md5>
+    
             <div>
-                Accidents: {{accidentCount}}
+                <v-btn flat @click="subtract('accidentCount')">
+                    <v-icon small>remove</v-icon>
+                </v-btn>
+                    Accidents: {{accidentCount}}
+                <v-btn flat @click="sum('accidentCount')">
+                    <v-icon small right>add</v-icon>
+                </v-btn>
             </div>
-            <div>
-                <v-btn flat>+</v-btn>
-                <v-btn flat>-</v-btn>
-            </div>
-            
+
         </v-flex>
 
     </v-layout>
@@ -36,14 +42,19 @@
 
 <script>
 export default {
-    data: ()=> ({
-        ticketCount: 0,
-        accidentCount: 0
-    }),
-    methods:{
-        increment(){
-
-        }
+  data: () => ({
+    ticketCount: 0,
+    accidentCount: 0
+  }),
+  methods: {
+    sum(counter) {
+      console.log(counter + " " + this[counter]);
+      counter = this[counter] < 5 ? this[counter]++ : this[counter];
+    },
+    subtract(counter) {
+      console.log(counter + " " + this[counter]);
+      counter = this[counter] > 0 ? this[counter]-- : this[counter];
     }
+  }
 };
 </script>

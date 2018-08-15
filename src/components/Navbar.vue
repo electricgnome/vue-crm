@@ -71,30 +71,30 @@
 </template>
 
 <script>
-import HelloWorld from './HelloWorld'
+import HelloWorld from "./HelloWorld";
 
 export default {
-  name: 'Navbar',
-  components:{
-      HelloWorld
+  name: "Navbar",
+  components: {
+    HelloWorld
   },
-  
-  data () {
+
+  data() {
     return {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Kappa Insurance'
-      }],
+      items: [
+        {
+          icon: "bubble_chart",
+          title: "Kappa Insurance"
+        }
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Kappa Insurance'
-    }
+      title: "Kappa Insurance"
+    };
   }
-}
+};
 </script>
-
-  
