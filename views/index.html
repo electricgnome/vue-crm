@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %}Quote Request{% endblock %} {% block content %}
+
+<div class="container z-depth-5 table_display" style="margin-top:80px;">
+
+
+    <div class="col s12 table_display">
+        <table class="highlight responsive-table centered">
+            <thead>
+                <tr>
+                    <h5 class="center-align">Customers</h5>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Day</th>
+                    <th>Inception</th>
+                    <th>Paid</th>
+                    <th>Premium</th>
+                    <!-- <th>Task / Comment</th>
+                    <th>Carrier</th>
+                    <th>Policy</th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in customers %}
+                <tr class="hoverable">
+                    
+                    <td>{{item.first_name}}</td>
+                    <td>{{item.zip}}</td>
+                    <td>{{item.id_number}}</td>
+                    <td>{{item.occupation}}</td>
+                    <td>{{item.city}}</td>
+                    <td>{{item.address}}</td>
+                    <!-- <td>{{item.task}}</td>
+                    <td>{{item.carrier}}</td>
+                    <td>{{item.policy}}</td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

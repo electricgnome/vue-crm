@@ -15,10 +15,10 @@
             </v-flex>
         </v-layout>
         <v-layout row justify-center>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-select :items="popLengths" v-model="popLength" standard label="Length of coverage without lapse:"></v-select>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field v-model="popCarrier" label="With who (Geico, Progressive, All State, etc...)"></v-text-field>
             </v-flex>
         </v-layout>

@@ -1,16 +1,15 @@
 <template>
-<v-form>
     <v-container>
         <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field v-model="street" label="Street Address"></v-text-field>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field v-model="city" label="City"></v-text-field>
             </v-flex>
         </v-layout>
          <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-select
           :items="states"
           v-model="state"
@@ -20,13 +19,11 @@
           single-line
         ></v-select>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field v-model="zipCode" label="Zip Code"></v-text-field>
             </v-flex>
         </v-layout>
     </v-container>
-
-</v-form>
 </template>
 
 <script>

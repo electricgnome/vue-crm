@@ -12,7 +12,7 @@
             <v-flex xs2>
                 <v-text-field v-model="vin" :rules="vinRules" :counter="17" label="*VIN" required></v-text-field>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <div>
                     <v-btn color="primary"> VERIFY VIN </v-btn>
                 </div>
@@ -36,7 +36,7 @@
             <h3>What coverage would you like?</h3>
         </v-layout>
         <v-layout row justify-center>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-select :items="coverages" v-model="coverage" standard label="Desired coverage:"></v-select>
             </v-flex>
 
@@ -48,11 +48,11 @@
             <h2> Additional Coverage:</h2>
         </v-layout>
         <v-layout row justify-center>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-checkbox v-model="supplemental" label="Personal Injury Protection (PIP)" value="pip" color="primary"></v-checkbox>
                 <v-checkbox v-model="supplemental" label="Uninsured Motorist" value="um" color="primary"></v-checkbox>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-checkbox v-model="supplemental" label="Rental" value="rental" color="primary"></v-checkbox>
                 <v-checkbox v-model="supplemental" label="Towing" value="towing" color="primary"></v-checkbox>
             </v-flex>

@@ -1,13 +1,12 @@
 <template>
-    <v-form v-model="valid">
-        <v-container>
+        <v-container v-model="valid">
           <v-layout row justify-center>
             <h2> Primary Driver</h2>
         </v-layout>
        
 
             <v-layout justify-center row>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field
                 v-model="FirstName"
                 :rules="FirstNameRules"
@@ -16,7 +15,7 @@
                 required
                 ></v-text-field>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs6 md3>
                 <v-text-field
                 v-model="LastName"
                 :rules="LastNameRules"
@@ -27,8 +26,6 @@
             </v-flex>
             </v-layout>
     </v-container>
-   
-    </v-form>
 </template>
 
 
