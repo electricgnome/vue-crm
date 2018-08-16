@@ -9,7 +9,7 @@
 
     <v-layout row justify-center>
 
-        <v-flex xs6 md5>
+        <v-flex offset-md1 xs6 md4 >
           
             <div>
                 <v-btn flat @click="subtract('ticketCount')">
@@ -22,7 +22,7 @@
             </div>
 
         </v-flex>
-        <v-flex xs6 md5>
+        <v-flex xs6 md4>
     
             <div>
                 <v-btn flat @click="subtract('accidentCount')">

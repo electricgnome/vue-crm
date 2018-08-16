@@ -14,7 +14,7 @@
     <v-tabs-items v-model="tab">
         <v-tab-item>
             <v-card flat>
-                <DriverPrimary title="Primary Driver" />
+                <DriverPrimary title="Primary Driver" @add-spouse="addSpouse" />
             </v-card>
         </v-tab-item>
         <v-tab-item v-for="item in drivers" :key="item">
@@ -31,37 +31,42 @@ import DriverPrimary from "./DriverPrimary";
 import DriverSecondary from "./DriverSecondary";
 
 export default {
-    name: "Tabs",
-    components: {
-        DriverPrimary,
-        DriverSecondary
+  name: "Tabs",
+  components: {
+    DriverPrimary,
+    DriverSecondary
+  },
+  data() {
+    return {
+      tab: null,
+      driverCnt: 1,
+      drivers: []
+    };
+  },
+  methods: {
+    addDriver() {
+      this.driverCnt++;
+      this.drivers.push("driver " + this.driverCnt);
+      const tab = parseInt(this.tab);
+      this.tab = tab < this.driverCnt ? tab + 1 : 0;
+      console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
     },
-    data() {
-        return {
-            tab: null,
-            driverCnt: 1,
-            drivers: [],
+    remDriver() {
+      this.driverCnt > 1 ? this.driverCnt-- : null;
+      this.drivers.pop();
+      const tab = parseInt(this.tab);
+      // console.log("tab: "+ tab)
+      this.tab = tab > 1 ? tab - 1 : 0;
+      // console.log("tab: "+ tab)
 
-        };
+      console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
     },
-    methods: {
-        addDriver() {
-            this.driverCnt++;
-            this.drivers.push("driver " + this.driverCnt);
-            const tab = parseInt(this.tab);
-            this.tab = tab < this.driverCnt ? tab + 1 : 0;
-            console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
-        },
-        remDriver() {
-            this.driverCnt > 1 ? this.driverCnt-- : null;
-            this.drivers.pop();
-            const tab = parseInt(this.tab);
-            // console.log("tab: "+ tab)
-            this.tab = tab > 1 ? tab - 1 : 0;
-            // console.log("tab: "+ tab)
-
-            console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
-        }
+    addSpouse() {
+      if (!this.drivers.includes("Spouse")) {
+        this.driverCnt++;
+        this.drivers.push("Spouse");
+      }
     }
+  }
 };
 </script>

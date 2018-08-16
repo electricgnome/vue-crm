@@ -10,7 +10,7 @@
             <v-flex xs6 md3>
                 <v-radio-group v-model="marritalStatus" :mandatory="false" >
                     <v-radio label="Single" value="Single" color="primary"></v-radio>
-                    <v-radio label="Married/Common Law" value="Married" color="primary"></v-radio>
+                    <v-radio label="Married/ Common Law" value="Married" color="primary" @change="isMarried"></v-radio>
                 </v-radio-group>
             </v-flex>
         </v-layout>
@@ -68,7 +68,7 @@ export default {
     occupation: "",
     date: false,
     dob: null,
-    relation: 'Self',
+    relation: "Self",
     idType: "Texas DL",
     IDNumber: "",
     IdTypes: [
@@ -90,6 +90,13 @@ export default {
     ],
     
     props:['driverRelation']
-  })
+  }),
+  methods: {
+      isMarried() {
+            console.log('step 1: '+ this.relation);    
+           (this.relation == 'Self' ? this.$emit('add-spouse') : null )
+      
+      }
+  }
 };
 </script>

@@ -1,58 +1,58 @@
 <template>
-<v-stepper non-linear v-model="e1">
-    <v-stepper-header>
-        <v-stepper-step editable step="1">Drivers</v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step editable step="2">Vehicles</v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step editable step="3">Discounts</v-stepper-step>
-
-    </v-stepper-header>
-
-    <v-stepper-items>
-        <v-stepper-content step="1">
-            <v-card class="mb-5">
-                <DriverTabs />
-            </v-card>
-
-            <v-btn color="primary" @click="e1 = 2">
-                Continue
-            </v-btn>
-
-            <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-
-        <v-stepper-content step="2">
-            <v-card class="mb-5"></v-card>
-            <VehicleTabs/>
-            <v-btn color="primary" @click="e1 = 1">
-                Back
-            </v-btn>
-            <v-btn color="primary" @click="e1 = 3">
-                Continue
-            </v-btn>
-        </v-stepper-content>
-
-        <v-stepper-content step="3">
-            <v-card class="mb-5"></v-card>
-            <Discounts/>
-            <v-btn color="primary" @click="e1 = 2">
-                Back
-            </v-btn>
-            <v-btn color="primary" @click="submit()">
-                <!-- :disabled="!valid"  -->
-                Submit
-            </v-btn>
-
-            <v-btn flat>Cancel</v-btn>
-        </v-stepper-content>
-    </v-stepper-items>
-
-</v-stepper>
+    <v-stepper non-linear v-model="e1">
+        <v-stepper-header>
+            <v-stepper-step editable step="1">Drivers</v-stepper-step>
+    
+            <v-divider></v-divider>
+    
+            <v-stepper-step editable step="2">Vehicles</v-stepper-step>
+    
+            <v-divider></v-divider>
+    
+            <v-stepper-step editable step="3">Discounts</v-stepper-step>
+    
+        </v-stepper-header>
+    
+        <v-stepper-items >
+            <v-stepper-content step="1" class="mt-0 pt-1">
+                <v-card >
+                    <DriverTabs class="mb-0 pt-0" />
+                </v-card>
+    
+                <v-btn color="primary" @click="e1 = 2">
+                    Continue
+                </v-btn>
+    
+                <v-btn flat>Cancel</v-btn>
+            </v-stepper-content>
+    
+            <v-stepper-content step="2" class="mt-0 pt-1">
+                <v-card class="mb-0"></v-card>
+                <VehicleTabs class="mb-0 pt-0"/>
+                <v-btn color="primary" @click="e1 = 1">
+                    Back
+                </v-btn>
+                <v-btn color="primary" @click="e1 = 3">
+                    Continue
+                </v-btn>
+            </v-stepper-content>
+    
+            <v-stepper-content step="3" class="mt-0 pt-1">
+                <v-card class="mb-0"></v-card>
+                <Discounts class="mb-0 pt-0"/>
+                <v-btn color="primary" @click="e1 = 2">
+                    Back
+                </v-btn>
+                <v-btn color="primary" @click="submit()">
+                    <!-- :disabled="!valid"  -->
+                    Submit
+                </v-btn>
+    
+                <v-btn flat>Cancel</v-btn>
+            </v-stepper-content>
+        </v-stepper-items>
+    
+    </v-stepper>
 </template>
 
 <script>
@@ -76,10 +76,12 @@ export default {
   methods: {
     submit() {
       axios
-        .post("api/submit", {
-          firstName: "something", //get from child component
-          lastName: "saldana"
-        })
+        .post("api/submit", this.$data 
+        // {
+        //   firstName: "something", //get from child component
+        //   lastName: "saldana"
+        // }
+        )
         .then(function(res) {
           console.log(res);
         })

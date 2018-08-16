@@ -5,7 +5,7 @@
         </v-layout>
     <Names/>
     <Contact/>
-    <Details driverRelation="Self"/>
+    <Details driverRelation="Self" @add-spouse="addSpouseTab"/>
     <Address/>
     <Accidents/>
 </v-form>
@@ -26,6 +26,14 @@ export default {
         Address,
         Accidents
     },
-    props:['title']
+    props:['title'],
+    methods: {
+        addSpouseTab(){
+            console.log('step 2')
+
+            this.$emit('add-spouse')
+        }
+
+    }
 };
 </script>
