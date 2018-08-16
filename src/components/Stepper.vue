@@ -16,13 +16,7 @@
     <v-stepper-items>
         <v-stepper-content step="1">
             <v-card class="mb-5">
-                <v-form>
-                    <Names/>
-                    <Contact/>
-                    <Details/>
-                    <Address/>
-                    <accidents/>
-                </v-form>
+                <DriverTabs />
             </v-card>
 
             <v-btn color="primary" @click="e1 = 2">
@@ -34,7 +28,7 @@
 
         <v-stepper-content step="2">
             <v-card class="mb-5"></v-card>
-            <Vehicle/>
+            <VehicleTabs/>
             <v-btn color="primary" @click="e1 = 1">
                 Back
             </v-btn>
@@ -63,44 +57,36 @@
 
 <script>
 import axios from "axios";
-import Names from "./Names";
-import Contact from "./Contact";
-import Details from "./Details";
-import Address from "./Address";
-import Accidents from "./Accidents";
-import Vehicle from "./Vehicle";
+
+import DriverTabs from "./DriverTabs";
+import VehicleTabs from "./VehicleTabs";
 import Discounts from "./Discounts";
 
 export default {
-    components: {
-        Names,
-        Contact,
-        Details,
-        Address,
-        Accidents,
-        Vehicle,
-        Discounts
-    },
-    data() {
-        return {
-            e1: 0
-        };
-    },
-    methods: {
-        submit() {
-
-            axios
-                .post("api/submit", JSON.stringify({
-                    firstName: "something", //get from child component
-                    lastName: "saldana"
-                }))
-                .then(function (res) {
-                    console.log(res);
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        }
+  components: {
+    DriverTabs,
+    VehicleTabs,
+    Discounts
+  },
+  data() {
+    return {
+      e1: 0
+    };
+  },
+  methods: {
+    submit() {
+      axios
+        .post("api/submit", {
+          firstName: "something", //get from child component
+          lastName: "saldana"
+        })
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
+  }
 };
 </script>

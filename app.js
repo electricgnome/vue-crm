@@ -19,7 +19,7 @@ var app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
-app.use(express.json({ type: 'application/*+json' })) //Vue form handling
+app.use(express.json()); //Vue form handling
 
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(express.static("dist"));
@@ -129,7 +129,7 @@ app.post("/api/submit", function(request, response, next) {
   let datas = request.body;
   // console.table("JSON: " + JSON.stringify(datas));
 
-  console.dir( datas);
+  console.dir(datas);
   response.send(JSON.stringify(request.body, null, 4));
   // response.redirect("/");
 });

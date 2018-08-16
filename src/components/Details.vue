@@ -10,7 +10,7 @@
             <v-flex xs6 md3>
                 <v-radio-group v-model="marritalStatus" :mandatory="false" >
                     <v-radio label="Single" value="Single" color="primary"></v-radio>
-                    <v-radio label="Married" value="Married" color="primary"></v-radio>
+                    <v-radio label="Married/Common Law" value="Married" color="primary"></v-radio>
                 </v-radio-group>
             </v-flex>
         </v-layout>
@@ -68,7 +68,7 @@ export default {
     occupation: "",
     date: false,
     dob: null,
-    relation: "Self",
+    relation: 'Self',
     idType: "Texas DL",
     IDNumber: "",
     IdTypes: [
@@ -87,7 +87,9 @@ export default {
       "Parent",
       "Child",
       "Other"
-    ]
+    ],
+    
+    props:['driverRelation']
   })
 };
 </script>

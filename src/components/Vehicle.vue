@@ -2,7 +2,7 @@
 <v-form v-model="valid">
     <v-container>
         <v-layout row justify-center>
-            <h2> Vehicle 1</h2>
+            <h2> {{title}}</h2>
         </v-layout>
         <v-layout row justify-center>
             <h3>What vehicle are we insureing today?</h3>
@@ -79,6 +79,7 @@ export default {
     deductibles: ["none", "500.00", "1000.00"],
     deductible: "",
     supplemental: []
-  })
+  }),
+  props:['title']
 };
 </script>
