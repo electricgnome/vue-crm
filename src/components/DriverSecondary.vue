@@ -4,7 +4,7 @@
             <h2> {{title}} </h2>
         </v-layout>
     <Names/>   
-    <Details/>  
+    <Details :driverRelation="title"/>  
     <Accidents/>
 </v-form>
 </template>
@@ -20,6 +20,11 @@ export default {
         Details,       
         Accidents
     },
-    props:['title']
+    props:['title'],
+  created(){
+    
+      
+  }
+
 };
 </script>

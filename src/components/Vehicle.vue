@@ -10,7 +10,7 @@
 
         <v-layout row justify-center>
             <v-flex offset-md2 xs8 md2>
-                <v-text-field v-model="vin" :rules="vinRules" :counter="17" label="*VIN" required></v-text-field>
+                <v-text-field v-model="vin" :rules="vinRules" :counter="17" label="*VIN" required validate-on-blur></v-text-field>
             </v-flex>
             <v-flex xs4 md3>
                 <div>

@@ -6,6 +6,8 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+window.Event = new Vue();
+
 new Vue({
   store,
   render: h => h(App)

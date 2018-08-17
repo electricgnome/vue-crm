@@ -13,9 +13,9 @@
     
         </v-stepper-header>
     
-        <v-stepper-items >
+        <v-stepper-items>
             <v-stepper-content step="1" class="mt-0 pt-1">
-                <v-card >
+                <v-card>
                     <DriverTabs class="mb-0 pt-0" />
                 </v-card>
     
@@ -28,7 +28,7 @@
     
             <v-stepper-content step="2" class="mt-0 pt-1">
                 <v-card class="mb-0"></v-card>
-                <VehicleTabs class="mb-0 pt-0"/>
+                <VehicleTabs class="mb-0 pt-0" />
                 <v-btn color="primary" @click="e1 = 1">
                     Back
                 </v-btn>
@@ -39,7 +39,7 @@
     
             <v-stepper-content step="3" class="mt-0 pt-1">
                 <v-card class="mb-0"></v-card>
-                <Discounts class="mb-0 pt-0"/>
+                <Discounts class="mb-0 pt-0" />
                 <v-btn color="primary" @click="e1 = 2">
                     Back
                 </v-btn>
@@ -56,39 +56,39 @@
 </template>
 
 <script>
-import axios from "axios";
-
-import DriverTabs from "./DriverTabs";
-import VehicleTabs from "./VehicleTabs";
-import Discounts from "./Discounts";
-
-export default {
-  components: {
-    DriverTabs,
-    VehicleTabs,
-    Discounts
-  },
-  data() {
-    return {
-      e1: 0
+    import axios from "axios";
+    
+    import DriverTabs from "./DriverTabs";
+    import VehicleTabs from "./VehicleTabs";
+    import Discounts from "./Discounts";
+    
+    export default {
+        components: {
+            DriverTabs,
+            VehicleTabs,
+            Discounts
+        },
+        data() {
+            return {
+                e1: 0
+            };
+        },
+        methods: {
+            submit() {
+                axios
+                    .post("api/submit", this.$data
+                        // {
+                        //   firstName: "something", //get from child component
+                        //   lastName: "saldana"
+                        // }
+                    )
+                    .then(function(res) {
+                        console.log(res);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                    });
+            }
+        }
     };
-  },
-  methods: {
-    submit() {
-      axios
-        .post("api/submit", this.$data 
-        // {
-        //   firstName: "something", //get from child component
-        //   lastName: "saldana"
-        // }
-        )
-        .then(function(res) {
-          console.log(res);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    }
-  }
-};
 </script>

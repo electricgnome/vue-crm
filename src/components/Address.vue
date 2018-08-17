@@ -20,7 +20,7 @@
         ></v-select>
             </v-flex>
             <v-flex xs6 md3>
-                <v-text-field v-model="zipCode" label="Zip Code"></v-text-field>
+                <v-text-field v-model.number="zipCode" label="Zip Code"></v-text-field>
             </v-flex>
         </v-layout>
     </v-container>

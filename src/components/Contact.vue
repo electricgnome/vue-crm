@@ -5,7 +5,7 @@
                 <v-text-field mask="phone" v-model="phone" :rules="phoneRules" :counter="10" label="*Cell Phone" required></v-text-field>
             </v-flex>
             <v-flex xs6 md3>
-                <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                <v-text-field v-model="email" :rules="emailRules" label="E-mail" validate-on-blur required></v-text-field>
             </v-flex>
         </v-layout>
     </v-container>

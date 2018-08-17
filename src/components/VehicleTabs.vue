@@ -44,20 +44,15 @@ export default {
     methods: {
         addVehicle() {
             this.vehicleCnt++;
-            this.vehicles.push("vehicle " + this.vehicleCnt);
+            this.vehicles.push("Vehicle " + this.vehicleCnt);
             const tab = parseInt(this.tab);
             this.tab = tab < this.vehicleCnt ? tab + 1 : 0;
-            console.log("vehicleCnt: " + this.vehicleCnt + " Vehicles: " + this.vehicles);
         },
         remVehicle() {
             this.vehicleCnt > 1 ? this.vehicleCnt-- : null;
             this.vehicles.pop();
             const tab = parseInt(this.tab);
-            // console.log("tab: "+ tab)
             this.tab = tab > 1 ? tab - 1 : 0;
-            // console.log("tab: "+ tab)
-
-            console.log("vehicleCnt: " + this.vehicleCnt + " Vehicles: " + this.vehicles);
         }
     }
 };

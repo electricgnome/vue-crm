@@ -14,12 +14,12 @@
     <v-tabs-items v-model="tab">
         <v-tab-item>
             <v-card flat>
-                <DriverPrimary title="Primary Driver" @add-spouse="addSpouse" />
+                <DriverPrimary title="Primary Driver" />
             </v-card>
         </v-tab-item>
         <v-tab-item v-for="item in drivers" :key="item">
             <v-card flat>
-                <DriverSecondary :title="item" />
+                <DriverSecondary :title="item"/>
             </v-card>
         </v-tab-item>
     </v-tabs-items>
@@ -46,27 +46,30 @@ export default {
   methods: {
     addDriver() {
       this.driverCnt++;
-      this.drivers.push("driver " + this.driverCnt);
+      this.drivers.push("Driver " + this.driverCnt);
       const tab = parseInt(this.tab);
       this.tab = tab < this.driverCnt ? tab + 1 : 0;
-      console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
+     
     },
     remDriver() {
       this.driverCnt > 1 ? this.driverCnt-- : null;
       this.drivers.pop();
-      const tab = parseInt(this.tab);
-      // console.log("tab: "+ tab)
+      const tab = parseInt(this.tab); 
       this.tab = tab > 1 ? tab - 1 : 0;
-      // console.log("tab: "+ tab)
 
-      console.log("driverCnt: " + this.driverCnt + " Drivers: " + this.drivers);
     },
     addSpouse() {
-      if (!this.drivers.includes("Spouse")) {
+      
+      if (!this.drivers.includes("Spouse") && this.tab==0 ) {
         this.driverCnt++;
-        this.drivers.push("Spouse");
+        this.drivers.splice(0,0,"Spouse");
+       
       }
     }
+  },
+    created() {
+      
+      Event.$on('add-spouse',()=> {this.addSpouse()})
   }
 };
 </script>
