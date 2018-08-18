@@ -26,6 +26,12 @@ export default {
       v => !!v || "E-mail is required",
       v => /.+@.+/.test(v) || "E-mail must be valid"
     ]
-  })
+  }),
+    created() {
+        Event.$on('get-drivers',()=> {
+            let details= {phone: this.$data.phone, email: this.$data.email}
+            Event.$emit('details', details)           
+            })
+        }
 };
 </script>

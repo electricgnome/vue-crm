@@ -35,6 +35,12 @@ export default {
     popLengths: ["Less than 6 months", "6 to 11 months", "12 months or longer"],
     popLength: "",
     popCarrier: ""
-  })
+  }),
+    created() {
+        Event.$on('get-drivers',()=> {
+            let details= {homeOwner: this.$data.homeOwner, pop: this.$data.pop, popLength: this.$data.popLength, popCarrier: this.$data.popCarrier}
+            Event.$emit('details', details)           
+            })
+        }
 };
 </script>

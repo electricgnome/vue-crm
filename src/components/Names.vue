@@ -25,6 +25,12 @@ export default {
             v => !!v || "Last Name required",
             v => v.length <= 12 || ":Last Name must be less than 12 characters"
         ]
-    })
+    }),
+    created() {
+        Event.$on('get-drivers',()=> {
+            let details= {firsName: this.$data.firstName, lastName: this.$data.lastName}
+            Event.$emit('details', details)           
+            })
+        }
 };
 </script>

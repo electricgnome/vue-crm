@@ -19,7 +19,7 @@
                     <DriverTabs class="mb-0 pt-0" />
                 </v-card>
     
-                <v-btn color="primary" @click="e1 = 2">
+                <v-btn color="primary" @click="getData">
                     Continue
                 </v-btn>
     
@@ -56,39 +56,53 @@
 </template>
 
 <script>
-    import axios from "axios";
-    
-    import DriverTabs from "./DriverTabs";
-    import VehicleTabs from "./VehicleTabs";
-    import Discounts from "./Discounts";
-    
-    export default {
-        components: {
-            DriverTabs,
-            VehicleTabs,
-            Discounts
-        },
-        data() {
-            return {
-                e1: 0
-            };
-        },
-        methods: {
-            submit() {
-                axios
-                    .post("api/submit", this.$data
-                        // {
-                        //   firstName: "something", //get from child component
-                        //   lastName: "saldana"
-                        // }
-                    )
-                    .then(function(res) {
-                        console.log(res);
-                    })
-                    .catch(function(err) {
-                        console.log(err);
-                    });
-            }
-        }
+import axios from "axios";
+
+import DriverTabs from "./DriverTabs";
+import VehicleTabs from "./VehicleTabs";
+import Discounts from "./Discounts";
+
+export default {
+  components: {
+    DriverTabs,
+    VehicleTabs,
+    Discounts
+  },
+  data() {
+    return {
+      e1: 0,
+      payload: []
     };
+  },
+  methods: {
+    getData() {
+      this.e1 = 2;
+    },
+    submit() {
+      Event.$emit("get-drivers");
+      console.log(this.payload);
+        axios
+          .post(
+            "api/submit",
+            this.$data.payload
+            // {
+            //   firstName: "something", //get from child component
+            //   lastName: "saldana"
+            // }
+          )
+          .then(function(res) {
+            console.log(res);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+    }
+  },
+  created() {
+    Event.$on("details", msg => {
+      this.payload.push(msg);
+      console.log(msg);
+    });
+  }
+};
 </script>

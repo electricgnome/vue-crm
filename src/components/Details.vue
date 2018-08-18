@@ -84,6 +84,15 @@
         created() {
     
             this.relation = this.driverRelation;
+            Event.$on('get-drivers',()=> {
+                let details= {gender: this.$data.gender, marritalStatus: this.$data.marritalStatus, occupation: this.$data.occupation, dob: this.$data.dob, relation: this.$data.relation, 
+                idType: this.$data.idType, IdNumber: this.$data.IDNumber}
+               
+                Event.$emit('details', details)
+                
+                
+                
+                })
     
         },
         beforeMount() {

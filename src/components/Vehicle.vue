@@ -80,6 +80,13 @@ export default {
     deductible: "",
     supplemental: []
   }),
-  props:['title']
+  props:['title'],
+    created() {
+        Event.$on('get-drivers',()=> {
+            let details= {vin: this.$data.vin, year: this.$data.year, make: this.$data.make, model: this.$data.model, 
+            coverage: this.$data.coverage, deductible: this.$data.deductible, supplemental: this.$data.supplemental}
+            Event.$emit('details', details)           
+            })
+        }
 };
 </script>

@@ -55,6 +55,12 @@ export default {
       console.log(counter + " " + this[counter]);
       counter = this[counter] > 0 ? this[counter]-- : this[counter];
     }
-  }
+  },
+    created() {
+        Event.$on('get-drivers',()=> {
+            let details= {tickets: this.$data.ticketCount, accidents: this.$data.accidentCount}
+            Event.$emit('details', details)           
+            })
+        }
 };
 </script>
