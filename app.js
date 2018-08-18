@@ -129,7 +129,8 @@ app.post("/api/submit", function(request, response, next) {
   let datas = request.body;
   // console.table("JSON: " + JSON.stringify(datas));
 
-  console.dir(datas);
+  // console.dir(datas);
+  console.log('xxx' + JSON.stringify(datas) + 'xxxx')
   response.send(JSON.stringify(request.body, null, 4));
   // response.redirect("/");
 });
