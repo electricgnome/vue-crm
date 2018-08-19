@@ -1,11 +1,11 @@
 <template>
 <v-form>
     <v-layout row justify-center>
-            <h2> {{title}} </h2>
-        </v-layout>
-    <Names/>   
-    <Details :driverRelation="title"/>  
-    <Accidents/>
+        <h2> {{title}} </h2>
+    </v-layout>
+    <Names @details="makeDriver" />
+    <Details :driverRelation="title" @details="makeDriver" />
+    <Accidents @details="makeDriver" />
 </v-form>
 </template>
 
@@ -16,15 +16,29 @@ import Accidents from "./Accidents";
 
 export default {
     components: {
-        Names,       
-        Details,       
+        Names,
+        Details,
         Accidents
     },
-    props:['title'],
-  created(){
-    
-      
-  }
+    data() {
+        return {
+            driver: {}
+        };
+    },
+    props: ['title'],
+    methods: {
+        makeDriver(msg) {
+            this.driver = Object.assign(
+                this.driver, msg);
+
+        }
+    },
+    created() {
+        Event.$on("get-drivers", () => {
+            Event.$emit('driver', this.driver)
+
+        });
+    }
 
 };
 </script>

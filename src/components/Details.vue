@@ -88,7 +88,7 @@
                 let details= {gender: this.$data.gender, marritalStatus: this.$data.marritalStatus, occupation: this.$data.occupation, dob: this.$data.dob, relation: this.$data.relation, 
                 idType: this.$data.idType, IdNumber: this.$data.IDNumber}
                
-                Event.$emit('details', details)
+                this.$emit('details', details)
                 
                 
                 

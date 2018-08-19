@@ -19,7 +19,7 @@
                 <DriverTabs class="mb-0 pt-0" />
             </v-card>
 
-            <v-btn color="primary" @click="getData">
+            <v-btn color="primary" @click="e1 = 2;">
                 Continue
             </v-btn>
 
@@ -71,15 +71,12 @@ export default {
     data() {
         return {
             e1: 0,
-            payload: []
+            payload: {}
         };
     },
     methods: {
-        getData() {
-            this.e1 = 2;
-        },
         submit() {
-            this.payload= []
+            this.payload = {drivers:[], vehicles:[]}
             Event.$emit("get-drivers");
             console.log(this.payload);
             //   const dataForBackend = convertDataForBackend(this.payload)
@@ -101,10 +98,21 @@ export default {
         }
     },
     created() {
-        Event.$on("details", msg => {
-            this.payload.push(msg);
+        Event.$on("driver", msg => {
+            this.payload.drivers.push(msg);
 
-        });
+        }),
+
+        Event.$on("vehicle", msg => {
+            this.payload.vehicles.push(msg);
+
+        }),
+
+        Event.$on("discounts", msg => {
+            this.payload.drivers[0] =Object.assign(
+                this.payload.drivers[0], msg);
+
+        })
     }
 };
 </script>

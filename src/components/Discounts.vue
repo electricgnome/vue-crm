@@ -39,7 +39,7 @@ export default {
     created() {
         Event.$on('get-drivers',()=> {
             let details= {homeOwner: this.$data.homeOwner, pop: this.$data.pop, popLength: this.$data.popLength, popCarrier: this.$data.popCarrier}
-            Event.$emit('details', details)           
+            Event.$emit('discounts', details)           
             })
         }
 };

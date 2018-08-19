@@ -98,7 +98,7 @@ export default {
     created() {
         Event.$on('get-drivers',()=> {
             let details= {street: this.$data.street, city: this.$data.city, state: this.$data.state, zip: this.$data.zipCode}
-            Event.$emit('details', details)           
+            this.$emit('details', details)           
             })
         }
 };

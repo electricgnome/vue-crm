@@ -14,7 +14,7 @@
     <v-tabs-items v-model="tab">
         <v-tab-item>
             <v-card flat>
-                <DriverPrimary title="Primary Driver" />
+                <DriverPrimary title="Primary Driver"/>
             </v-card>
         </v-tab-item>
         <v-tab-item v-for="item in drivers" :key="item">

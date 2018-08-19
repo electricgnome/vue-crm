@@ -59,7 +59,7 @@ export default {
     created() {
         Event.$on('get-drivers',()=> {
             let details= {tickets: this.$data.ticketCount, accidents: this.$data.accidentCount}
-            Event.$emit('details', details)           
+            this.$emit('details', details)           
             })
         }
 };

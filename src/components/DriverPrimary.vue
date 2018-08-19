@@ -1,13 +1,13 @@
 <template>
 <v-form>
-       <v-layout row justify-center>
-            <h2> {{title}} </h2>
-        </v-layout>
-    <Names/>
-    <Contact/>
-    <Details driverRelation="Self"/>
-    <Address/>
-    <Accidents/>
+    <v-layout row justify-center>
+        <h2> {{title}} </h2>
+    </v-layout>
+    <Names @details="makeDriver" />
+    <Contact @details="makeDriver" />
+    <Details driverRelation="Self" @details="makeDriver" />
+    <Address @details="makeDriver" />
+    <Accidents @details="makeDriver" />
 </v-form>
 </template>
 
@@ -26,8 +26,25 @@ export default {
         Address,
         Accidents
     },
-    props:['title']
-    
-    
-};
+    data() {
+        return {
+            driver: {}
+        };
+    },
+    props: ['title'],
+    methods: {
+        makeDriver(msg) {
+            this.driver = Object.assign(
+                this.driver, msg);
+
+        }
+    },
+    created() {
+        Event.$on("get-drivers", () => {
+            Event.$emit('driver', this.driver)
+
+        });
+    }
+
+}
 </script>

@@ -29,7 +29,7 @@ export default {
     created() {
         Event.$on('get-drivers',()=> {
             let details= {firsName: this.$data.firstName, lastName: this.$data.lastName}
-            Event.$emit('details', details)           
+            this.$emit('details', details)           
             })
         }
 };
