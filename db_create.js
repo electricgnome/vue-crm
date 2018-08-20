@@ -1,35 +1,33 @@
 const db = require("./models");
 
-function dataToCustomer(payload) {
-  for (let i = 0; i < payload.drivers.length; i++) {
-    return {
-      first_name: payload.drivers[i].firstName,
-      last_name: payload.drivers[i].lastName,
-      birthdate: payload.drivers[i].dob,
-      contact: JSON.stringify({
-        phone: payload.drivers[i].phone,
-        email: payload.drivers[i].email
-      }),
-      gender: payload.drivers[i].gender,
-      marital_status: payload.drivers[i].marritalStatus,
-      occupation: payload.drivers[i].occupation,
-      id_type: payload.drivers[i].idType,
-      id_number: payload.drivers[i].idNumber,
-      address: payload.drivers[i].street,
-      city: payload.drivers[i].city,
-      state: payload.drivers[i].state,
-      zip: payload.drivers[i].zip,
-      tickets: payload.drivers[i].tickets,
-      accidents: payload.drivers[i].accidents,
-      at_fault: payload.drivers[i].at_fault,
-      pref_lang: payload.drivers[i].pref_lang,
-      home_owner: payload.drivers[i].homeOwner,
-      has_pop: payload.drivers[i].pop,
-      pop_length: payload.drivers[i].popLength,
-      pop_carrier: payload.drivers[i].popCarrier,
-      status: payload.drivers[i].status
-    };
-  }
+function dataToCustomer(driver) {
+  return {
+    first_name: driver.firstName,
+    last_name: driver.lastName,
+    birthdate: driver.dob,
+    contact: JSON.stringify({
+      phone: driver.phone,
+      email: driver.email
+    }),
+    gender: driver.gender,
+    marital_status: driver.marritalStatus,
+    occupation: driver.occupation,
+    id_type: driver.idType,
+    id_number: driver.idNumber,
+    address: driver.street,
+    city: driver.city,
+    state: driver.state,
+    zip: driver.zip,
+    tickets: driver.tickets,
+    accidents: driver.accidents,
+    at_fault: driver.at_fault,
+    pref_lang: driver.pref_lang,
+    home_owner: driver.homeOwner,
+    has_pop: driver.pop,
+    pop_length: driver.popLength,
+    pop_carrier: driver.popCarrier,
+    status: driver.status
+  };
 }
 
 function dataToPolicy(payload) {
@@ -42,49 +40,59 @@ function dataToPolicy(payload) {
     premium: payload.premium || 0,
     effective_date: payload.effective_date || Date.now(),
     // renewal_date: payload.renewal_date
-    status: payload.status
+    status: payload.status || "Quote"
   };
 }
 
-function dataToDriver(payload, customerId, policyId) {
-  for (let i = 0; i < payload.drivers.length; i++) {
-    return {
-      relation: payload.drivers[i].relation,
-      customerId: customerId,
-      policyId: policyId
-    };
-  }
+function dataToDriver(driver, customerId, policyId) {
+  return {
+    relation: driver.relation,
+    customerId: customerId,
+    policyId: policyId
+  };
 }
 
-function dataToVehicle(payload, policyId) {
-  console.log("Adding cars")
-  for (let i = 0; i < payload.vehicles.length; i++) {
-    return {
-      vin: payload.vehicles[i].vin,
-      year: payload.vehicles[i].year,
-      make: payload.vehicles[i].make,
-      model: payload.vehicles[i].model,
-      coverage: payload.vehicles[i].coverage,
-      deductible: payload.vehicles[i].deductible,
-      pip: payload.vehicles[i].supplemental.pip,
-      um: payload.vehicles[i].supplemental.um,
-      rental: payload.vehicles[i].supplemental.rental,
-      towing: payload.vehicles[i].supplemental.towing,
-      policyId: policyId
-    };
-  }
+function dataToVehicle(vehicle, policyId) {
+  return {
+    vin: vehicle.vin,
+    year: vehicle.year,
+    make: vehicle.make,
+    model: vehicle.model,
+    coverage: vehicle.coverage,
+    deductible: vehicle.deductible,
+    pip: vehicle.supplemental.includes("pip"),
+    um: vehicle.supplemental.includes("um"),
+    rental: vehicle.supplemental.includes("rental"),
+    towing: vehicle.supplemental.includes("towing"),
+    policyId: policyId
+  };
 }
 
-function dataToTables(payload, nextFn) {
-  db.customer.create(dataToCustomer(payload)).then(result => {
-    let customerId = result.id;
-    console.log("customer ID: " + customerId);
+function dataToTables(payload) {
+  const drivers = payload.drivers.map(driver => dataToCustomer(driver));
+  let customerId = [];
+  // console.log(drivers);
+  const driverPromises = drivers.map(driver => db.customer.create(driver));
+  Promise.all(driverPromises).then(results => {
+    results = JSON.stringify(results);
+    results = JSON.parse(results);
+    results.map(result => customerId.push(result));
     db.policy.create(dataToPolicy(payload)).then(result => {
       let policyId = result.id;
-      Promise.all([
-        db.driver.create(dataToDriver(payload, customerId, policyId)),
-        db.vehicle.create(dataToVehicle(payload, policyId))
-      ]);
+      let iterator = customerId.entries();
+      const driverLinks = payload.drivers.map(driver =>
+        dataToDriver(driver, iterator.next().value[1].id, policyId)
+      );
+      const driverLinkPromises = driverLinks.map(link =>
+        db.driver.create(link, customerId, policyId)
+      );
+      const vehicles = payload.vehicles.map(vehicle =>
+        dataToVehicle(vehicle, policyId)
+      );
+      const vehiclePromises = vehicles.map(vehicle =>
+        db.vehicle.create(vehicle)
+      );
+      Promise.all([driverLinkPromises, vehiclePromises]);
     });
   });
 }

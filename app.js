@@ -23,6 +23,8 @@ app.use(express.json()); //Vue form handling
 
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(express.static("dist"));
+// app.use(express.static("public"));
+
 
 var hour = 3600000;
 app.use(
@@ -128,18 +130,14 @@ app.get("/", function(request, response) {
 app.post("/api/submit", function(request, response, next) {
   let payload = request.body;
 
-  console.log('xxx' + JSON.stringify(payload) + 'xxxx')
-  
+  console.log("xxx" + JSON.stringify(payload) + "xxxx");
+
   Promise.resolve(db_create.dataToTables(payload))
     .then(result => {
       // response.redirect("/");
       response.send(JSON.stringify(request.body, null, 4));
     })
     .catch(next);
-
-  
-  
- 
 });
 
 app.get("/quote", function(request, response) {
