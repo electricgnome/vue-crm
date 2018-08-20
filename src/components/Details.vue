@@ -36,7 +36,7 @@
                 <v-select :items="IdTypes" v-model="idType" standard label="Form of ID"></v-select>
             </v-flex>
             <v-flex xs6 md3>
-                <v-text-field v-model="IDNumber" :counter="15" label="ID Number"></v-text-field>
+                <v-text-field v-model="idNumber" :counter="15" label="ID Number"></v-text-field>
             </v-flex>
         </v-layout>
     </v-container>
@@ -52,7 +52,7 @@
             dob: null,
             relation: "",
             idType: "Texas DL",
-            IDNumber: "",
+            idNumber: "",
             IdTypes: [
                 "Texas DL",
                 "Texas ID",
@@ -86,7 +86,7 @@
             this.relation = this.driverRelation;
             Event.$on('get-drivers',()=> {
                 let details= {gender: this.$data.gender, marritalStatus: this.$data.marritalStatus, occupation: this.$data.occupation, dob: this.$data.dob, relation: this.$data.relation, 
-                idType: this.$data.idType, IdNumber: this.$data.IDNumber}
+                idType: this.$data.idType, idNumber: this.$data.idNumber}
                
                 this.$emit('details', details)
                 

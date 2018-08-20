@@ -126,13 +126,20 @@ app.get("/", function(request, response) {
 });
 
 app.post("/api/submit", function(request, response, next) {
-  let datas = request.body;
-  // console.table("JSON: " + JSON.stringify(datas));
+  let payload = request.body;
 
-  // console.dir(datas);
-  console.log('xxx' + JSON.stringify(datas) + 'xxxx')
-  response.send(JSON.stringify(request.body, null, 4));
-  // response.redirect("/");
+  console.log('xxx' + JSON.stringify(payload) + 'xxxx')
+  
+  Promise.resolve(db_create.dataToTables(payload))
+    .then(result => {
+      // response.redirect("/");
+      response.send(JSON.stringify(request.body, null, 4));
+    })
+    .catch(next);
+
+  
+  
+ 
 });
 
 app.get("/quote", function(request, response) {

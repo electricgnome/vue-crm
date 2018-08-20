@@ -28,7 +28,7 @@ export default {
     }),
     created() {
         Event.$on('get-drivers',()=> {
-            let details= {firsName: this.$data.firstName, lastName: this.$data.lastName}
+            let details= {firstName: this.$data.firstName, lastName: this.$data.lastName}
             this.$emit('details', details)           
             })
         }
