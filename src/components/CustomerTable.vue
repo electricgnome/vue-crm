@@ -94,220 +94,250 @@
 <script>
 import axios from "axios";
 export default {
-    data: () => ({
-        dialog: false,
-        headers: [{
-                text: 'First Name',
-                align: 'left',
-                sortable: false,
-                value: 'firstName' + 'lastName'
-            },
-            {
-                text: 'last Name',
-                value: 'lastName'
-            },
-            {
-                text: 'phone',
-                value: 'phone'
-            },
-            {
-                text: 'carrier',
-                value: 'carrier'
-            },
-            {
-                text: 'policyNo',
-                value: 'policyNo'
-            },
-            {
-                text: 'inceptionDate',
-                value: 'inceptionDate'
-            },
-            {
-                text: 'payDay',
-                value: 'payDay'
-            },
-            {
-                text: 'policyStatus',
-                value: 'policyStatus'
-            },
-            {
-                text: 'pendingItems',
-                value: 'pendingItems'
-            },
-            {
-                text: 'notes',
-                value: 'notes'
-            },
-            {
-                text: 'agent',
-                value: 'agent'
-            },
-            {
-                text: 'Actions',
-                value: 'firstName',
-                sortable: false
-            }
-        ],
-        customers: [],
-        editedIndex: -1,
-        editedItem: {
-            firstName: '',
-            lastName: '',
-            phone: 0,
-            carrier: '',
-            policyNo: '',
-            inceptionDate: '',
-            payDay: '',
-            policyStatus: '',
-            pendingItems: [],
-            notes: [],
-            agent: ''
-        },
-        defaultItem: {
-            firstName: '',
-            lastName: '',
-            phone: 0,
-            carrier: '',
-            policyNo: '',
-            inceptionDate: '',
-            payDay: '',
-            policyStatus: '',
-            pendingItems: [],
-            notes: [],
-            agent: ''
-        }
-    }),
-
-    computed: {
-        formTitle() {
-            return this.editedIndex === -1 ? 'New Customer' : 'Edit Customer'
-        }
+  data: () => ({
+    dialog: false,
+    headers: [
+      {
+        text: "First Name",
+        align: "left",
+        sortable: false,
+        value: "firstName" + "lastName"
+      },
+      {
+        text: "last Name",
+        value: "lastName"
+      },
+      {
+        text: "phone",
+        value: "phone"
+      },
+      {
+        text: "carrier",
+        value: "carrier"
+      },
+      {
+        text: "policyNo",
+        value: "policyNo"
+      },
+      {
+        text: "inceptionDate",
+        value: "inceptionDate"
+      },
+      {
+        text: "payDay",
+        value: "payDay"
+      },
+      {
+        text: "policyStatus",
+        value: "policyStatus"
+      },
+      {
+        text: "pendingItems",
+        value: "pendingItems"
+      },
+      {
+        text: "notes",
+        value: "notes"
+      },
+      {
+        text: "agent",
+        value: "agent"
+      },
+      {
+        text: "Actions",
+        value: "firstName",
+        sortable: false
+      }
+    ],
+    customerData: {},
+    customers: [],
+    editedIndex: -1,
+    editedItem: {
+      firstName: "",
+      lastName: "",
+      phone: 0,
+      carrier: "",
+      policyNo: "",
+      inceptionDate: "",
+      payDay: "",
+      policyStatus: "",
+      pendingItems: [],
+      notes: [],
+      agent: ""
     },
-
-    watch: {
-        dialog(val) {
-            val || this.close()
-        }
-    },
-
-    created() {
-        this.initialize()
-    },
-
-    methods: {
-        initialize() {
-            this.customers = [{
-                    firstName: 'Frozen Yogurt',
-                    lastName: 159,
-                    phone: 6.0,
-                    carrier: 24,
-                    policyNo: 4.0
-                },
-                {
-                    firstName: 'Ice cream sandwich',
-                    lastName: 237,
-                    phone: 9.0,
-                    carrier: 37,
-                    policyNo: 4.3
-                },
-                {
-                    firstName: 'Eclair',
-                    lastName: 262,
-                    phone: 16.0,
-                    carrier: 23,
-                    policyNo: 6.0
-                },
-                {
-                    firstName: 'Cupcake',
-                    lastName: 305,
-                    phone: 3.7,
-                    carrier: 67,
-                    policyNo: 4.3
-                },
-                {
-                    firstName: 'Gingerbread',
-                    lastName: 356,
-                    phone: 16.0,
-                    carrier: 49,
-                    policyNo: 3.9
-                },
-                {
-                    firstName: 'Jelly bean',
-                    lastName: 375,
-                    phone: 0.0,
-                    carrier: 94,
-                    policyNo: 0.0
-                },
-                {
-                    firstName: 'Lollipop',
-                    lastName: 392,
-                    phone: 0.2,
-                    carrier: 98,
-                    policyNo: 0
-                },
-                {
-                    firstName: 'Honeycomb',
-                    lastName: 408,
-                    phone: 3.2,
-                    carrier: 87,
-                    policyNo: 6.5
-                },
-                {
-                    firstName: 'Donut',
-                    lastName: 452,
-                    phone: 25.0,
-                    carrier: 51,
-                    policyNo: 4.9
-                },
-                {
-                    firstName: 'KitKat',
-                    lastName: 518,
-                    phone: 26.0,
-                    carrier: 65,
-                    policyNo: 7
-                }
-            ]
-        },
-
-        editItem(item) {
-            this.editedIndex = this.customers.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.dialog = true
-        },
-
-        deleteItem(item) {
-            const index = this.customers.indexOf(item)
-            confirm('Are you sure you want to delete this customer?') && this.customers.splice(index, 1)
-        },
-
-        close() {
-            this.dialog = false
-            setTimeout(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-            }, 300)
-        },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(this.customers[this.editedIndex], this.editedItem)
-            } else {
-                this.customers.push(this.editedItem)
-            }
-            this.close()
-        }
-    },
-    created() {
-        axios
-            .get("api/customerlist")
-            .then(function (res) {
-                console.log(res);
-
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+    defaultItem: {
+      firstName: "",
+      lastName: "",
+      phone: 0,
+      carrier: "",
+      policyNo: "",
+      inceptionDate: "",
+      payDay: "",
+      policyStatus: "",
+      pendingItems: [],
+      notes: [],
+      agent: ""
     }
+  }),
 
-}
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Customer" : "Edit Customer";
+    }
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    }
+  },
+
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    initialize() {
+      console.log("customerssss");
+
+      console.log(this.customerData);
+
+      // this.customers = [{
+      //         firstName: 'Frozen Yogurt',
+      //         lastName: 159,
+      //         phone: 6.0,
+      //         carrier: 24,
+      //         policyNo: 4.0
+      //     },
+      //     {
+      //         firstName: 'Ice cream sandwich',
+      //         lastName: 237,
+      //         phone: 9.0,
+      //         carrier: 37,
+      //         policyNo: 4.3
+      //     },
+      //     {
+      //         firstName: 'Eclair',
+      //         lastName: 262,
+      //         phone: 16.0,
+      //         carrier: 23,
+      //         policyNo: 6.0
+      //     },
+      //     {
+      //         firstName: 'Cupcake',
+      //         lastName: 305,
+      //         phone: 3.7,
+      //         carrier: 67,
+      //         policyNo: 4.3
+      //     },
+      //     {
+      //         firstName: 'Gingerbread',
+      //         lastName: 356,
+      //         phone: 16.0,
+      //         carrier: 49,
+      //         policyNo: 3.9
+      //     },
+      //     {
+      //         firstName: 'Jelly bean',
+      //         lastName: 375,
+      //         phone: 0.0,
+      //         carrier: 94,
+      //         policyNo: 0.0
+      //     },
+      //     {
+      //         firstName: 'Lollipop',
+      //         lastName: 392,
+      //         phone: 0.2,
+      //         carrier: 98,
+      //         policyNo: 0
+      //     },
+      //     {
+      //         firstName: 'Honeycomb',
+      //         lastName: 408,
+      //         phone: 3.2,
+      //         carrier: 87,
+      //         policyNo: 6.5
+      //     },
+      //     {
+      //         firstName: 'Donut',
+      //         lastName: 452,
+      //         phone: 25.0,
+      //         carrier: 51,
+      //         policyNo: 4.9
+      //     },
+      //     {
+      //         firstName: 'KitKat',
+      //         lastName: 518,
+      //         phone: 26.0,
+      //         carrier: 65,
+      //         policyNo: 7
+      //     }
+      // ]
+    },
+
+    editItem(item) {
+      this.editedIndex = this.customers.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      const index = this.customers.indexOf(item);
+      confirm("Are you sure you want to delete this customer?") &&
+        this.customers.splice(index, 1);
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.customers[this.editedIndex], this.editedItem);
+      } else {
+        this.customers.push(this.editedItem);
+      }
+      this.close();
+    },
+    getCustomers() {
+      // firstName:,
+      // lastName:,
+      // phone:,
+      // carrier:,
+      // policyNo:,
+      // inceptionDate:,
+      // payDay:'',
+      // policyStatus:,
+      // pendingItems:'',
+      // notes:'',
+      // agent:,
+    }
+  },
+  created() {
+      let self = this;
+    axios
+      .get("api/customerlist")
+      .then(function(res) {
+         
+        let customers = JSON.parse(res.data[0]);
+        let vehicles = JSON.parse(res.data[1]);
+        self.customerData = customers
+        console.log(customers[0].customer.first_name);
+       
+
+      
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+     
+  },
+  mounted() {
+       
+  }
+};
 </script>

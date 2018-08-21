@@ -143,19 +143,17 @@ app.post("/api/submit", function(request, response, next) {
 app.get("/api/customerlist", function(request, response, next) {  
   console.log("Getting customers")
   db.driver.findAll({ include: [{ model: db.policy },{ model: db.customer }] }).then(drivers => {
-    db.vehicle.findAll({include: [ { model: db.policy }]}).then(vehicles => {
+    db.policyVehicle.findAll({include: [{ model: db.policy }, { model: db.vehicle }]}).then(vehicles => {
     //   db.customer.findAll().then(drivers=>{
         vehicles =JSON.stringify(vehicles)
-        // vehicles =JSON.parse(vehicles)
-
-        drivers =JSON.stringify(drivers)
-        // drivers =JSON.parse(drivers)
+        drivers =JSON.stringify(drivers)      
         let payload = [drivers, vehicles]
-        console.log(JSON.parse(drivers));
-        console.log(JSON.parse(vehicles));
+       
+        // console.log(payload)
 
+        // response.send(payload, null, 4);
+        response.send(payload);
 
-        response.send(payload, null, 4);
       }).catch(next);
      
    })

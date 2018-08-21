@@ -1,8 +1,9 @@
 <template>
   <v-app>
     <NavBar/>
+     <Stepper/>
     <CustomerTable/>
-    <!-- <Stepper/> -->
+   
     <!-- <Carriers/> -->
     <!-- <About/>
     <contactUs/> -->

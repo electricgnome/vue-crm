@@ -52,7 +52,7 @@ function dataToDriver(driver, customerId, policyId) {
   };
 }
 
-function dataToVehicle(vehicle, policyId) {
+function dataToVehicle(vehicle) {
   return {
     vin: vehicle.vin,
     year: vehicle.year,
@@ -63,38 +63,78 @@ function dataToVehicle(vehicle, policyId) {
     pip: vehicle.supplemental.includes("pip"),
     um: vehicle.supplemental.includes("um"),
     rental: vehicle.supplemental.includes("rental"),
-    towing: vehicle.supplemental.includes("towing"),
-    policyId: policyId
+    towing: vehicle.supplemental.includes("towing")
+    // policyId: policyId
+  };
+}
+
+function dataToPolicyVehicle(policyId, vehicleId) {
+  return {
+    policyId: policyId,
+    vehicleId: vehicleId
+    
   };
 }
 
 function dataToTables(payload) {
   const drivers = payload.drivers.map(driver => dataToCustomer(driver));
+  const vehicles = payload.vehicles.map(vehicle => dataToVehicle(vehicle));
   let customerId = [];
+  let vehicleId=[];
   // console.log(drivers);
   const driverPromises = drivers.map(driver => db.customer.create(driver));
+  const vehiclePromises = vehicles.map(vehicle => db.vehicle.create(vehicle));
+
   Promise.all(driverPromises).then(results => {
     results = JSON.stringify(results);
     results = JSON.parse(results);
     results.map(result => customerId.push(result));
+
+    Promise.all(vehiclePromises).then(results => {
+      results = JSON.stringify(results);
+      results = JSON.parse(results);
+      results.map(result => vehicleId.push(result));
+      // console.log(customerId)
+      // console.log(vehicleId)
+
     db.policy.create(dataToPolicy(payload)).then(result => {
       let policyId = result.id;
-      let iterator = customerId.entries();
+      let customerIterator = customerId.entries();
+      let vehicleIterator = vehicleId.entries();
+
       const driverLinks = payload.drivers.map(driver =>
-        dataToDriver(driver, iterator.next().value[1].id, policyId)
+        dataToDriver(driver, customerIterator.next().value[1].id, policyId)
       );
       const driverLinkPromises = driverLinks.map(link =>
         db.driver.create(link, customerId, policyId)
       );
-      const vehicles = payload.vehicles.map(vehicle =>
-        dataToVehicle(vehicle, policyId)
+      // console.log(vehicleIterator.next().value[1].id)
+
+      const vehicleLinks = payload.vehicles.map(vehicle =>
+        dataToPolicyVehicle(policyId, vehicleIterator.next().value[1].id)
       );
-      const vehiclePromises = vehicles.map(vehicle =>
-        db.vehicle.create(vehicle)
+      console.log(vehicleLinks)
+      const vehicleLinkPromises = vehicleLinks.map(link =>        
+        db.policyVehicle.create(link)
       );
-      Promise.all([driverLinkPromises, vehiclePromises]);
+
+      // const vehicles = payload.vehicles.map(vehicle =>
+      //   dataToVehicle(vehicle, policyId)
+      // );
+     
+      // const vehiclePromises = vehicles.map(vehicle =>
+      //   db.vehicle.create(vehicle)
+      // ).then(result => {
+      //   result = JSON.stringify(result);
+      //   result = JSON.parse(result);
+      //   result.map(result => vehicleId.push(result));
+      //   const policyVehicles = 
+      // })
+      Promise.all([driverLinkPromises, vehicleLinkPromises]);
     });
   });
+})
 }
+
 
 exports.dataToTables = dataToTables;

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     leinholder: DataTypes.STRING
   }, {});
   vehicle.associate = function(models) {
-    vehicle.belongsTo(models.policy)
+    // vehicle.belongsTo(models.policy)
     // associations can be defined here
   };
   return vehicle;
