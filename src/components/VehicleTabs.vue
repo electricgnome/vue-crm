@@ -2,7 +2,7 @@
 <v-container>
     <v-tabs slot="extension" v-model="tab" color="blue">
         <v-tabs-slider color="yellow"></v-tabs-slider>
-        <v-tab> Primary </v-tab>
+        <v-tab> Vehicle 1 </v-tab>
         <v-tab v-for="item in vehicles" :key="item">
             {{ item }}
         </v-tab>

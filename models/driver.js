@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
   driver.associate = function(models) {
     driver.belongsTo(models.policy)
     driver.belongsTo(models.customer)
+    
+
     // associations can be defined here
   };
   return driver;

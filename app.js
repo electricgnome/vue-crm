@@ -140,6 +140,29 @@ app.post("/api/submit", function(request, response, next) {
     .catch(next);
 });
 
+app.get("/api/customerlist", function(request, response, next) {  
+  console.log("Getting customers")
+  db.driver.findAll({ include: [{ model: db.policy },{ model: db.customer }] }).then(drivers => {
+    db.vehicle.findAll({include: [ { model: db.policy }]}).then(vehicles => {
+    //   db.customer.findAll().then(drivers=>{
+        vehicles =JSON.stringify(vehicles)
+        // vehicles =JSON.parse(vehicles)
+
+        drivers =JSON.stringify(drivers)
+        // drivers =JSON.parse(drivers)
+        let payload = [drivers, vehicles]
+        console.log(JSON.parse(drivers));
+        console.log(JSON.parse(vehicles));
+
+
+        response.send(payload, null, 4);
+      }).catch(next);
+     
+   })
+    
+  // });
+});
+
 app.get("/quote", function(request, response) {
   response.render("quote_form.html");
 });

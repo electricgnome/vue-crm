@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING
   }, {});
   policy.associate = function(models) {
+    
     // associations can be defined here
   };
   return policy;
