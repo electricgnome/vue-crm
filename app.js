@@ -149,7 +149,7 @@ app.get("/api/customerlist", function(request, response, next) {
         drivers =JSON.stringify(drivers)      
         let payload = [drivers, vehicles]
        
-        // console.log(payload)
+        console.log(payload)
 
         // response.send(payload, null, 4);
         response.send(payload);

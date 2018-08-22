@@ -192,87 +192,25 @@ export default {
     }
   },
 
-  created() {
-    this.initialize();
-  },
-
   methods: {
     initialize() {
-      console.log("customerssss");
-
-      console.log(this.customerData);
-
-      // this.customers = [{
-      //         firstName: 'Frozen Yogurt',
-      //         lastName: 159,
-      //         phone: 6.0,
-      //         carrier: 24,
-      //         policyNo: 4.0
-      //     },
-      //     {
-      //         firstName: 'Ice cream sandwich',
-      //         lastName: 237,
-      //         phone: 9.0,
-      //         carrier: 37,
-      //         policyNo: 4.3
-      //     },
-      //     {
-      //         firstName: 'Eclair',
-      //         lastName: 262,
-      //         phone: 16.0,
-      //         carrier: 23,
-      //         policyNo: 6.0
-      //     },
-      //     {
-      //         firstName: 'Cupcake',
-      //         lastName: 305,
-      //         phone: 3.7,
-      //         carrier: 67,
-      //         policyNo: 4.3
-      //     },
-      //     {
-      //         firstName: 'Gingerbread',
-      //         lastName: 356,
-      //         phone: 16.0,
-      //         carrier: 49,
-      //         policyNo: 3.9
-      //     },
-      //     {
-      //         firstName: 'Jelly bean',
-      //         lastName: 375,
-      //         phone: 0.0,
-      //         carrier: 94,
-      //         policyNo: 0.0
-      //     },
-      //     {
-      //         firstName: 'Lollipop',
-      //         lastName: 392,
-      //         phone: 0.2,
-      //         carrier: 98,
-      //         policyNo: 0
-      //     },
-      //     {
-      //         firstName: 'Honeycomb',
-      //         lastName: 408,
-      //         phone: 3.2,
-      //         carrier: 87,
-      //         policyNo: 6.5
-      //     },
-      //     {
-      //         firstName: 'Donut',
-      //         lastName: 452,
-      //         phone: 25.0,
-      //         carrier: 51,
-      //         policyNo: 4.9
-      //     },
-      //     {
-      //         firstName: 'KitKat',
-      //         lastName: 518,
-      //         phone: 26.0,
-      //         carrier: 65,
-      //         policyNo: 7
-      //     }
-      // ]
+       this.customerData.map(cust => {
+       if(cust.relation=="Self"){
+        this.customers.push({
+          firstName: cust.customer.first_name,
+          lastName: cust.customer.last_name,
+          phone: JSON.parse(cust.customer.contact).phone,
+          carrier: cust.policy.carrier,
+          policyNo: cust.policy.policy_id,
+          inceptionDate: cust.policy.createdAt,
+          payDay: "15",
+          policyStatus: cust.policy.status,
+          pendingItems: "",
+          notes: "",
+          agent: cust.policy.agent
+        });}
+        
+      });
     },
 
     editItem(item) {
@@ -318,26 +256,37 @@ export default {
     }
   },
   created() {
-      let self = this;
+    let self = this;
     axios
       .get("api/customerlist")
       .then(function(res) {
-         
         let customers = JSON.parse(res.data[0]);
         let vehicles = JSON.parse(res.data[1]);
-        self.customerData = customers
-        console.log(customers[0].customer.first_name);
-       
-
-      
+        self.customerData = customers;
+        console.log(customers);
       })
       .catch(function(err) {
         console.log(err);
       });
-     
+
+    // this.initialize();
   },
   mounted() {
-       
+    // this.customers = this.customerData.map(customers => {
+    //   return {
+    //     firstName: customers.customer.first_name,
+    //     lastName: customers.customer.last_name,
+    //     phone: JSON.parse(customers.customer.contact).phone,
+    //     carrier: customers.policy.carrier,
+    //     policyNo: customers.policy.policy_id,
+    //     inceptionDate: customers.policy.createdAt,
+    //     payDay: "15",
+    //     policyStatus: customers.policy.status,
+    //     pendingItems: "",
+    //     notes: "",
+    //     agent: customers.policy.agent
+    //   };
+    // });
   }
 };
 </script>
