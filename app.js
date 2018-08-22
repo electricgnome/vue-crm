@@ -9,12 +9,15 @@ pbkdf2 = require("pbkdf2");
 passhelper = require("pbkdf2-helpers");
 crypto = require("crypto");
 
+const serveStatic = require('serve-static')
+const path = require('path')
+
 let db_create = require("./db_create");
 let connection;
 
 const db = require("./models"); //for use with sequelize
 
-var app = express();
+const app = express();
 
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -53,9 +56,9 @@ io.use(
 // app.use(function(request, response, next) {
 //   if (request.session.user) {
 //     next();
-//   } else if (request.path == "/login") {
+//   } else if (request.path == "/api/login") {
 //     next();
-//   } else if (request.path == "/register") {
+//   } else if (request.path == "/api/register") {
 //     next();
 //   } else {
 //     response.redirect("/login");
@@ -63,12 +66,16 @@ io.use(
 // });
 // =======================       ===================
 
+
+app.use("/", serveStatic ( path.join (__dirname, '/dist') ) ) //static for VUE
+
+
 app.get("/register", function(request, response) {
   response.render("register.html");
 });
 
 app.post("/register", function(request, response) {
-  var username = request.body.username;
+ 
   var password = request.body.password;
   var password2 = request.body.password2;
   var passcrypt = passhelper.generate_storage(password);
@@ -98,7 +105,7 @@ app.get("/login", function(request, response) {
   response.render("login.html");
 });
 
-app.post("/login", function(request, response) {
+app.post("/api/login", function(request, response) {
   var username = request.body.username;
   var password = request.body.password;
   db.user.findOne({ where: { email: username } }).then(user => {
@@ -130,7 +137,7 @@ app.get("/", function(request, response) {
 app.post("/api/submit", function(request, response, next) {
   let payload = request.body;
 
-  console.log("xxx" + JSON.stringify(payload) + "xxxx");
+  // console.log("xxx" + JSON.stringify(payload) + "xxxx");
 
   Promise.resolve(db_create.dataToTables(payload))
     .then(result => {
@@ -149,7 +156,7 @@ app.get("/api/customerlist", function(request, response, next) {
         drivers =JSON.stringify(drivers)      
         let payload = [drivers, vehicles]
        
-        console.log(payload)
+        // console.log(payload)
 
         // response.send(payload, null, 4);
         response.send(payload);
