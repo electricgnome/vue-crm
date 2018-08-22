@@ -149,7 +149,7 @@ export default {
         sortable: false
       }
     ],
-    customerData: {},
+    customerData: [],
     customers: [],
     editedIndex: -1,
     editedItem: {
@@ -269,7 +269,7 @@ export default {
         console.log(err);
       });
 
-    // this.initialize();
+    this.initialize();
   },
   mounted() {
     // this.customers = this.customerData.map(customers => {
