@@ -2,13 +2,13 @@
     <v-container>
         <v-layout justify-center row>
             <v-flex xs6 md3>
-                <v-radio-group v-model="gender" :mandatory="false">
+                <v-radio-group v-model="gender" :mandatory="true">
                     <v-radio label="Male" value="Male" color="primary"></v-radio>
                     <v-radio label="Female" value="Female" color="primary"></v-radio>
                 </v-radio-group>
             </v-flex>
             <v-flex xs6 md3>
-                <v-radio-group v-model="marritalStatus" :mandatory="false">
+                <v-radio-group v-model="marritalStatus" :mandatory="true" :disabled="relation =='Spouse' ? true : false">
                     <v-radio label="Single" value="Single" color="primary"></v-radio>
                     <v-radio label="Married/ Common Law" value="Married" color="primary" @change="isMarried"></v-radio>
                 </v-radio-group>
@@ -63,12 +63,12 @@
                 "No ID"
             ],
             relations: [
-                "Self",
-                "Spouse",
-                "Sibling",
-                "Parent",
-                "Child",
-                "Other"
+                {text:"Sibling", value: "Sibling"},
+                {text:"Parent", value: "Parent"},
+                {text:"Child", value:"Child" },
+                {text:"Other", value: "Other"},
+                {text:"Self", value:"Self", disabled: true  },
+                {text:"Spouse", value: "Spouse", disabled: true }
             ],
     
     

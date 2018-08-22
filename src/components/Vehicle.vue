@@ -14,7 +14,7 @@
             </v-flex>
             <v-flex xs4 md3>
                 <div>
-                    <v-btn color="primary"> VERIFY VIN </v-btn>
+                    <v-btn color="primary" @click="verifyVin" > VERIFY VIN </v-btn>
                 </div>
             </v-flex>
         </v-layout>
@@ -41,7 +41,7 @@
             </v-flex>
 
             <v-flex xs4 md2>
-                <v-select :items="deductibles" v-model="deductible" standard label="Deductible:"></v-select>
+                <v-select :items="deductibles" v-model="deductible" standard label="Deductible:" v-if="this.coverage === 'full'"></v-select>
             </v-flex>
         </v-layout>
         <v-layout row justify-center>
@@ -49,12 +49,12 @@
         </v-layout>
         <v-layout row justify-center>
             <v-flex offset-md2 xs6 md3>
-                <v-checkbox v-model="supplemental" label="Personal Injury Protection (PIP)" value="pip" color="primary"></v-checkbox>
+                <v-checkbox v-model="supplemental" label="Personal Injury Protection (PIP)" value="pip" color="primary" v-if="this.coverage === 'full'"></v-checkbox>
                 <v-checkbox v-model="supplemental" label="Uninsured Motorist" value="um" color="primary"></v-checkbox>
             </v-flex>
             <v-flex xs6 md3>
-                <v-checkbox v-model="supplemental" label="Rental" value="rental" color="primary"></v-checkbox>
-                <v-checkbox v-model="supplemental" label="Towing" value="towing" color="primary"></v-checkbox>
+                <v-checkbox v-model="supplemental" label="Rental" value="rental" color="primary" v-if="this.coverage === 'full'"></v-checkbox>
+                <v-checkbox v-model="supplemental" label="Towing" value="towing" color="primary" v-if="this.coverage === 'full'"></v-checkbox>
             </v-flex>
         </v-layout>
 
@@ -74,13 +74,33 @@ export default {
       v => !!v || "VIN required",
       v => v.length == 17 || "VIN must be exactly 17 characters"
     ],
-    coverages: ["liability only", "Comprehensive/ Collision (Full Coverage)"],
+    coverages: [{text: "liability only", value:"liability"}, {text: "Comprehensive/ Collision (Full Coverage)", value:"full"}],
     coverage: "",
-    deductibles: ["none", "500.00", "1000.00"],
-    deductible: "",
+    deductibles: [ {text:"None", value: "0", disabled: true}, {text:"$500.00", value: "500.00"}, {text:"$1,000.00", value: "1000.00"},],
+    deductible: 0,
     supplemental: []
   }),
   props:['title'],
+  methods:{
+      verifyVin(){
+          console.log("Verifying")
+          console.log(this.vin)
+        let payload =  JSON.stringify(this.vin)
+            axios
+                .post(
+                    "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
+                    {format:"json",data:payload}
+                  
+                )
+                .then(function (res) {
+                    console.log(res);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+      }
+
+  },
     created() {
         Event.$on('get-drivers',()=> {
             let details= {vin: this.$data.vin, year: this.$data.year, make: this.$data.make, model: this.$data.model, 
