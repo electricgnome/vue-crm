@@ -1,6 +1,6 @@
 <template>
-<v-form>
-    <v-container>
+<v-form ref="form" v-model="valid" lazy-validation>
+   
         <v-layout row justify-center>
             <h2> Discounts</h2>
         </v-layout>
@@ -22,14 +22,13 @@
                 <v-text-field v-model="popCarrier" label="With who (Geico, Progressive, All State, etc...)"></v-text-field>
             </v-flex>
         </v-layout>
-
-    </v-container>
 </v-form>
 </template>
 
 <script>
 export default {
   data: () => ({
+    valid:true,
     homeOwner: false,
     pop: false,
     popLengths: ["Less than 6 months", "6 to 11 months", "12 months or longer"],
@@ -37,7 +36,7 @@ export default {
     popCarrier: ""
   }),
     created() {
-        Event.$on('get-drivers',()=> {
+        Event.$on('driver',()=> {
             let details= {homeOwner: this.$data.homeOwner, pop: this.$data.pop, popLength: this.$data.popLength, popCarrier: this.$data.popCarrier}
             Event.$emit('discounts', details)           
             })

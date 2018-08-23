@@ -1,6 +1,5 @@
 <template>
-<v-form v-model="valid">
-    <v-container>
+<v-form ref="form" v-model="valid" lazy-validation>
         <v-layout row justify-center>
             <h2> {{title}}</h2>
         </v-layout>
@@ -57,8 +56,6 @@
                 <v-checkbox v-model="supplemental" label="Towing" value="towing" color="primary" v-if="this.coverage === 'full'"></v-checkbox>
             </v-flex>
         </v-layout>
-
-    </v-container>
 </v-form>
 </template>
 
@@ -67,7 +64,7 @@ export default {
   data: () => ({
     valid: false,
     vin: "",
-    year: 0,
+    year: null,
     make: "",
     model: "",
     vinRules: [

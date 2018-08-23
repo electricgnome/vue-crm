@@ -1,11 +1,11 @@
 <template>
-    <v-container>
+    <v-form ref="form" v-model="valid" lazy-validation>
         <v-layout justify-center row>
             <v-flex xs6 md3>
-                <v-text-field v-model="street" label="Street Address"></v-text-field>
+                <v-text-field v-model="street" label="Street Address" requiered></v-text-field>
             </v-flex>
             <v-flex xs6 md3>
-                <v-text-field v-model="city" label="City"></v-text-field>
+                <v-text-field v-model="city" label="City" requiered></v-text-field>
             </v-flex>
         </v-layout>
          <v-layout justify-center row>
@@ -20,19 +20,20 @@
         ></v-select>
             </v-flex>
             <v-flex xs6 md3>
-                <v-text-field v-model.number="zipCode" label="Zip Code"></v-text-field>
+                <v-text-field v-model.number="zipCode" label="Zip Code" requiered></v-text-field>
             </v-flex>
         </v-layout>
-    </v-container>
+    </v-form>
 </template>
 
 <script>
 export default {
   data: () => ({
+    valid: true,
     street: "",
     city: "Houston",
     state: "Texas",
-    zipCode: 0,
+    zipCode: null,
     states: [
       "Alabama",
       "Alaska",
@@ -95,11 +96,16 @@ export default {
       "Wyoming"
     ]
   }),
-    created() {
-        Event.$on('get-drivers',()=> {
-            let details= {street: this.$data.street, city: this.$data.city, state: this.$data.state, zip: this.$data.zipCode}
-            this.$emit('details', details)           
-            })
-        }
+  created() {
+    Event.$on("get-drivers", () => {
+      let details = {
+        street: this.$data.street,
+        city: this.$data.city,
+        state: this.$data.state,
+        zip: this.$data.zipCode
+      };
+      this.$emit("details", details);
+    });
+  }
 };
 </script>
