@@ -83,18 +83,26 @@ export default {
   props:['title'],
   methods:{
       verifyVin(){
-          console.log("Verifying")
-          console.log(this.vin)
-        let payload =  JSON.stringify(this.vin)
+      
+          let self=this
+        let payload =  this.vin
             axios
                 .post(
                     "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
+                    `data=${payload}&format=json`,
                     
-                    {headers: { 'content-type': 'application/x-www-form-urlencoded' },data:payload}
+                    {headers: { 'content-type': 'application/x-www-form-urlencoded' }}
                   
                 )
-                .then(function (res) {
-                    console.log(res);
+                .then(function (res) {                    
+                    // console.log(res);
+                    let vinResult = res.data.Results[0]
+                    console.log(vinResult)
+                    
+                    self.year = vinResult.ModelYear
+                    self.make = vinResult.Make
+                    self.model = vinResult.Model
+
                 })
                 .catch(function (err) {
                     console.log(err);
