@@ -3,8 +3,8 @@ body_parser = require("body-parser");
 jsonfile = "/src/file.json";
 const Promise = require("bluebird");
 session = require("express-session");
-// (redis = require("redis")), (client = redis.createClient(process.env.REDIS_URL));
-(redis = require("redis")), (client = redis.createClient());
+(redis = require("redis")), (client = redis.createClient(process.env.REDIS_URL || null));
+// (redis = require("redis")), (client = redis.createClient());
 
 RedisStore = require("connect-redis")(session);
 pbkdf2 = require("pbkdf2");
