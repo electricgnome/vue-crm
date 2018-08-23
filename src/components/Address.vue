@@ -32,7 +32,7 @@ export default {
     street: "",
     city: "Houston",
     state: "Texas",
-    zipCode: "",
+    zipCode: 0,
     states: [
       "Alabama",
       "Alaska",

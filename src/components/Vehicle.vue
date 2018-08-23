@@ -67,7 +67,7 @@ export default {
   data: () => ({
     valid: false,
     vin: "",
-    year: "",
+    year: 0,
     make: "",
     model: "",
     vinRules: [
@@ -89,7 +89,8 @@ export default {
             axios
                 .post(
                     "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
-                    {format:"json",data:payload}
+                    
+                    {headers: { 'content-type': 'application/x-www-form-urlencoded' },data:payload}
                   
                 )
                 .then(function (res) {

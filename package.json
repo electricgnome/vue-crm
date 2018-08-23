@@ -21,6 +21,7 @@
     "pbkdf2": "^3.0.16",
     "pbkdf2-helpers": "^1.1.1",
     "pg": "^7.4.3",
+    "postman": "^0.2.0",
     "redis": "^2.8.0",
     "sequelize": "^4.38.0",
     "serve-static": "^1.13.2",
