@@ -271,22 +271,6 @@ export default {
 
     this.initialize();
   },
-  mounted() {
-    // this.customers = this.customerData.map(customers => {
-    //   return {
-    //     firstName: customers.customer.first_name,
-    //     lastName: customers.customer.last_name,
-    //     phone: JSON.parse(customers.customer.contact).phone,
-    //     carrier: customers.policy.carrier,
-    //     policyNo: customers.policy.policy_id,
-    //     inceptionDate: customers.policy.createdAt,
-    //     payDay: "15",
-    //     policyStatus: customers.policy.status,
-    //     pendingItems: "",
-    //     notes: "",
-    //     agent: customers.policy.agent
-    //   };
-    // });
-  }
+   
 };
 </script>
