@@ -40,6 +40,9 @@ export default {
             let details= {homeOwner: this.$data.homeOwner, pop: this.$data.pop, popLength: this.$data.popLength, popCarrier: this.$data.popCarrier}
             Event.$emit('discounts', details)           
             })
-        }
+        },
+    destroyed(){
+        Event.$off('driver')
+    }
 };
 </script>

@@ -38,7 +38,10 @@ export default {
             Event.$emit('driver', this.driver)
 
         });
-    }
+    },
+        destroyed(){
+            Event.$off('get-drivers')
+        }
 
 };
 </script>

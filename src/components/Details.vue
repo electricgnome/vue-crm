@@ -98,8 +98,10 @@
         },
         beforeMount() {
             (this.relation == 'Spouse' ? this.marritalStatus = 'Married' : null)
+        },
+        destroyed(){
+            Event.$off('get-drivers')
         }
-    
-    
-    };
+};
+
 </script>

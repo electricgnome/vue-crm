@@ -65,6 +65,9 @@ export default {
       };
       this.$emit("details", details);
     });
+  },
+  destroyed() {
+    Event.$off("get-drivers");
   }
 };
 </script>

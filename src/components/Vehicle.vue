@@ -113,6 +113,9 @@ export default {
             coverage: this.$data.coverage, deductible: this.$data.deductible, supplemental: this.$data.supplemental}
             Event.$emit('vehicle', details)           
             })
+        },
+        destroyed(){
+            Event.$off('get-drivers')
         }
 };
 </script>

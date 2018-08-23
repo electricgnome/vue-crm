@@ -84,22 +84,19 @@ export default {
             }
         },
         submit() {
-            
             this.payload = {drivers:[], vehicles:[]}
+            
+            
             Event.$emit("get-drivers");
-            console.log(this.payload);
+            console.log(JSON.stringify(this.payload.drivers));
             //   const dataForBackend = convertDataForBackend(this.payload)
             axios
                 .post(
                     "api/submit",
-                    this.$data.payload
-                    // {
-                    //   firstName: "something", //get from child component
-                    //   lastName: "saldana"
-                    // }
-                )
+                    this.$data.payload)
                 .then(function (res) {
                     console.log(res);
+                
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -128,6 +125,12 @@ export default {
             //     this.payload.drivers[0], msg);
 
         })
+    },
+    destroyed(){
+        Event.$off("driver")
+        Event.$off("vehicle")
+        Event.$off("discounts")
+
     }
 };
 </script>

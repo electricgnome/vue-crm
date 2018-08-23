@@ -32,6 +32,9 @@ export default {
             let details= {phone: this.$data.phone, email: this.$data.email}
             this.$emit('details', details)           
             })
+        },
+        destroyed(){
+            Event.$off('get-drivers')
         }
 };
 </script>
