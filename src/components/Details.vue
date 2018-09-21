@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-form ref="form" v-model="valid" lazy-validation>
         <v-layout justify-center row>
             <v-flex xs6 md3>
                 <v-radio-group v-model="gender" :mandatory="true">
@@ -39,12 +39,13 @@
                 <v-text-field v-model="idNumber" :counter="15" label="ID Number"></v-text-field>
             </v-flex>
         </v-layout>
-    </v-container>
+    </v-form >
 </template>
 
 <script>
     export default {
         data: () => ({
+            valid:true,
             gender: "",
             marritalStatus: "",
             occupation: "",
@@ -97,8 +98,10 @@
         },
         beforeMount() {
             (this.relation == 'Spouse' ? this.marritalStatus = 'Married' : null)
+        },
+        destroyed(){
+            Event.$off('get-drivers')
         }
-    
-    
-    };
+};
+
 </script>

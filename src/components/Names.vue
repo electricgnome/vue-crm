@@ -1,5 +1,5 @@
 <template>
-<v-container v-model="valid">
+<v-form ref="form" v-model="valid" lazy-validation>
     <v-layout justify-center row>
         <v-flex xs6 md3>
             <v-text-field v-model="firstName" :rules="firstNameRules" :counter="12" label="*First Name" required></v-text-field>
@@ -8,13 +8,13 @@
             <v-text-field v-model="lastName" :rules="lastNameRules" :counter="12" label="*Last Name" required></v-text-field>
         </v-flex>
     </v-layout>
-</v-container>
+</v-form>
 </template>
 
 <script>
 export default {
     data: () => ({
-        valid: false,
+        valid: true,
         firstName: "",
         lastName: "",
         firstNameRules: [
@@ -31,6 +31,9 @@ export default {
             let details= {firstName: this.$data.firstName, lastName: this.$data.lastName}
             this.$emit('details', details)           
             })
+        },
+        destroyed(){
+            Event.$off('get-drivers')
         }
 };
 </script>

@@ -16,10 +16,12 @@
     <v-stepper-items>
         <v-stepper-content step="1" class="mt-0 pt-1">
             <v-card>
+                <v-form ref="form" v-model="valid" lazy-validation>
                 <DriverTabs class="mb-0 pt-0" />
+                </v-form>
             </v-card>
 
-            <v-btn color="primary" @click="e1 = 2;">
+            <v-btn color="primary" @click="e1 = 2;" @submit="validate">
                 Continue
             </v-btn>
 
@@ -36,7 +38,7 @@
                 Continue
             </v-btn>
         </v-stepper-content>
-
+        <!--<form @submit=submit()-->
         <v-stepper-content step="3" class="mt-0 pt-1">
             <v-card class="mb-0"></v-card>
             <Discounts class="mb-0 pt-0" />
@@ -70,27 +72,31 @@ export default {
     },
     data() {
         return {
+            valid:true,
             e1: 0,
             payload: {}
         };
     },
     methods: {
+        validate(){
+            if (this.$refs.form.validate()) {
+                alert("Valid!")
+            }
+        },
         submit() {
             this.payload = {drivers:[], vehicles:[]}
+            
+            
             Event.$emit("get-drivers");
-            console.log(this.payload);
+            console.log(JSON.stringify(this.payload.drivers));
             //   const dataForBackend = convertDataForBackend(this.payload)
             axios
                 .post(
                     "api/submit",
-                    this.$data.payload
-                    // {
-                    //   firstName: "something", //get from child component
-                    //   lastName: "saldana"
-                    // }
-                )
+                    this.$data.payload)
                 .then(function (res) {
                     console.log(res);
+                
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -109,10 +115,22 @@ export default {
         }),
 
         Event.$on("discounts", msg => {
-            this.payload.drivers[0] =Object.assign(
-                this.payload.drivers[0], msg);
+            this.payload.drivers.forEach(driver=>{
+                if (driver.relation ==="Self"){
+                     driver =Object.assign(
+                driver, msg);
+                }
+            })
+            // this.payload.drivers[0] =Object.assign(
+            //     this.payload.drivers[0], msg);
 
         })
+    },
+    destroyed(){
+        Event.$off("driver")
+        Event.$off("vehicle")
+        Event.$off("discounts")
+
     }
 };
 </script>

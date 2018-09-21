@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-form ref="form" v-model="valid" lazy-validation>
     <v-layout row justify-center>
         <h2> Tickets or Accidents in the past 5 years?</h2>
     </v-layout>
@@ -37,12 +37,13 @@
         </v-flex>
 
     </v-layout>
-</v-container>
+</v-form>
 </template>
 
 <script>
 export default {
   data: () => ({
+    valid: true,
     ticketCount: 0,
     accidentCount: 0
   }),
@@ -56,11 +57,17 @@ export default {
       counter = this[counter] > 0 ? this[counter]-- : this[counter];
     }
   },
-    created() {
-        Event.$on('get-drivers',()=> {
-            let details= {tickets: this.$data.ticketCount, accidents: this.$data.accidentCount}
-            this.$emit('details', details)           
-            })
-        }
+  created() {
+    Event.$on("get-drivers", () => {
+      let details = {
+        tickets: this.$data.ticketCount,
+        accidents: this.$data.accidentCount
+      };
+      this.$emit("details", details);
+    });
+  },
+  destroyed() {
+    Event.$off("get-drivers");
+  }
 };
 </script>
