@@ -45,7 +45,7 @@
             <v-btn color="primary" @click="e1 = 2">
                 Back
             </v-btn>
-            <v-btn color="primary" @click="submit()">
+            <v-btn color="primary" @click="submit()" v-bind:key="submitBtn" :disabled="clicked.includes(submitBtn)">
                 <!-- :disabled="!valid"  -->
                 Submit
             </v-btn>
@@ -72,9 +72,11 @@ export default {
     },
     data() {
         return {
+            submitBtn:true,
             valid:true,
             e1: 0,
-            payload: {}
+            payload: {},
+            clicked:[]
         };
     },
     methods: {
@@ -84,6 +86,7 @@ export default {
             }
         },
         submit() {
+            this.clicked.push(this.submitBtn)
             this.payload = {drivers:[], vehicles:[]}
             
             
